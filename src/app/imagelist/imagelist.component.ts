@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import Swal from 'sweetalert2';
@@ -17,11 +17,11 @@ export class ImagelistComponent implements OnInit {
     'version',
     'actions',
   ];
-  dataSource: any;
 
+  dataSource: any;
   imageList: any;
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router, private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.getAllImages();
@@ -38,16 +38,23 @@ export class ImagelistComponent implements OnInit {
             'You provided an invalid object where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable')
         ) {
           this.router.navigate(['/login']);
-          Swal.fire('OOPS!', 'User Already Taken', 'error');
+          Swal.fire('OOPS!', 'Access Denied', 'error');
         }
       }
     );
   }
 
   deleteById(data: any) {
-    //console.log('req.body', data._id)
-    this.api.deleteId(data._id).subscribe((res: any) => {
-      // console.log('deleteId --> ', res);
+    this.api.deleteId(data._id).subscribe(() => {
+      Swal.fire('Deleted Successfully');
+      this.getAllImages();
+      this.changeDetector.detectChanges()
     });
+
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
