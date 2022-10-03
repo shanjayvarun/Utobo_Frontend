@@ -1,0 +1,131 @@
+<html lang="en">
+
+<head>
+  <title style="color: brown">Responsive Login and Signup Form</title>
+  <meta name="author" content="Zaur" />
+  <meta descryption content="Presentation of website" />
+  <meta name="keywords" content="technology, cyber security, software" />
+  <meta http-equiv="refresh" content="30000000" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="stylesheet" href="./login.component.scss" />
+</head>
+
+<body>
+  <div class="container">
+    <input type="checkbox" id="flip" />
+    <div class="cover">
+      <div class="front">
+        <img
+         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAA1BMVEUBRCF+xM2yAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIALA8UNAAFusnLHAAAAAElFTkSuQmCC"
+          alt="" />
+        <div class="form-link">
+          <span class="img-text-1">UTOBO's </span>
+          <span class="img-text-2">Let's get connected</span>
+        </div>
+      </div>
+      <div class="back">
+        <img class="back-img"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARwAAACxCAMAAAAh3/JWAAAAA1BMVEUBRCF+xM2yAAAASElEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIALA8UNAAFusnLHAAAAAElFTkSuQmCC"
+          alt="" />
+        <div class="form-link">
+          <span class="img-text-1">Complete Interview Task<br />
+            By Shanjay</span>
+        </div>
+      </div>
+    </div>
+    <form action="#">
+      <div class="form-content">
+        <form [formGroup]="profileForm" (ngSubmit)="userLogin()" novalidate>
+          <div class="login-form">
+            <div class="title">Login</div>
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" class="input" placeholder="Enter your email" formControlName="email" />
+              </div>
+            </div>
+
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" class="input" placeholder="Enter your password" formControlName="password" />
+              </div>
+            </div>
+
+            <div class="form-link pass">
+              <a href="#" style="font-size: 20px">Forget your password?</a>
+            </div>
+
+            <div class="input-groups">
+              <div class="button input-box">
+                <button type="submit" [disabled]="!profileForm.valid">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class="form-link login-text">
+              <span>Don't have an account? <br /><label class="link login-link" for="flip">Signup now</label></span>
+            </div>
+          </div>
+        </form>
+
+        <div class="sign-form">
+          <div class="title">Signup</div>
+
+          <form [formGroup]="signUpForm" (ngSubmit)="userSignUp()">
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" class="input" placeholder="Enter your First Name" formControlName="firstName" />
+              </div>
+            </div>
+
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" class="input" placeholder="Enter your Last Name" formControlName="lastName" />
+              </div>
+            </div>
+
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" class="input" placeholder="Enter your email" formControlName="email" />
+              </div>
+            </div>
+
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" class="input" placeholder="Enter your password" formControlName="password" />
+              </div>
+            </div>
+
+            <div class="input-groups">
+              <div class="input-box">
+                <i class="fa-solid fa-lock"></i>
+                <input type="number" class="input" placeholder="Enter your Phone Number"
+                  formControlName="phoneNumber" />
+              </div>
+            </div>
+
+          <div class="input-groups">
+            <div class="button input-box">
+              <button type="submit" [disabled]="!signUpForm.valid">Register</button>
+            </div>
+          </div>
+        </form>
+          <div class="form-link signup-text">
+            <span>Already have an account?
+              <label class="link login-link" for="flip">Login now
+              </label></span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

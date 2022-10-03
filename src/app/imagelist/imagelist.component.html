@@ -1,0 +1,57 @@
+<html lang="en">
+  <head>
+    <title style="color: brown">Responsive Login and Signup Form</title>
+    <meta name="author" content="Zaur" />
+    <meta descryption content="Presentation of website" />
+    <meta name="keywords" content="technology, cyber security, software" />
+    <meta http-equiv="refresh" content="30000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./imagelist.component.scss" />
+  </head>
+
+  <body>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef>user Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.user_Id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef>createdDate</th>
+        <td mat-cell *matCellDef="let element">{{ element.createdDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="version">
+        <th mat-header-cell *matHeaderCellDef>Version</th>
+        <td mat-cell *matCellDef="let element">{{ element.__v }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="db">
+        <th mat-header-cell *matHeaderCellDef>Database Id</th>
+        <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="imageUrl">
+        <th mat-header-cell *matHeaderCellDef>Image Url</th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.imageUrl" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="warn" (click)="deleteById(element)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </body>
+</html>
