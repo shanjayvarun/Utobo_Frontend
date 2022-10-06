@@ -63,18 +63,17 @@ export class ApiService {
       );
   }
 
-  uploadImage(data:File){
-
-let image = {
-  imageUrl : data
-}    
+  uploadImage(data: string) {
+    let image = {
+      imageUrl: data,
+    };
     return this.$http
-    .post(`http://localhost:4000/images/addImage`, image, {
-      headers: this.getHeaders(),
-    })
-    .pipe(
-      map((response: any) => response.data),
-      catchError(this.handleError)
-    );
+      .post(`http://localhost:4000/images/addImage`, image, {
+        headers: this.getHeaders(),
+      })
+      .pipe(
+        map((response: any) => response.data),
+        catchError(this.handleError)
+      );
   }
 }

@@ -28,7 +28,15 @@ export class ImagelistComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private api: ApiService, private router: Router, private changeDetector: ChangeDetectorRef) {}
+  isImageSaved: boolean = false;
+  cardImageBase64: string = '';
+  fileName: any;
+
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getAllImages();
@@ -55,9 +63,8 @@ export class ImagelistComponent implements OnInit {
     this.api.deleteId(data._id).subscribe(() => {
       Swal.fire('Deleted Successfully');
       this.getAllImages();
-      this.changeDetector.detectChanges()
+      this.changeDetector.detectChanges();
     });
-
   }
 
   logout() {
@@ -65,14 +72,58 @@ export class ImagelistComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onFileChanged(event:any) {
+  onFileChanged(event: any) {
     this.img = event.target.files[0];
-    console.log("img", this.img.name)
+    console.log('img', this.img.name);
   }
 
-  onsubmit(){
-         this.api.uploadImage(this.img.name).subscribe((res) => {
-               console.log("success", res)
-         })
+  // encodeImageFileAsURL(element:any) {
+  //   var file = element.files[0];
+  //   var reader = new FileReader();
+  //   reader.onloadend = function() {
+  //     console.log('RESULT', reader.result)
+  //   }
+  //   reader.readAsDataURL(file);
+  // }
+
+
+  //METHOD -2 sending a BASE64 encrypted url to api
+  CreateBase64String(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = (rs) => {
+          const imgBase64Path = e.target.result;
+          this.cardImageBase64 = imgBase64Path;
+          this.isImageSaved = true;
+          console.log('this is my path', this.cardImageBase64);
+        };
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
   }
+
+  onsubmit() {
+    this.api.uploadImage(this.cardImageBase64).subscribe((res) => {
+      console.log('success', res);
+    });
+  }
+
+  //METHOD -1 sending a name of code and encrypting in backend
+  loadImageFromDevice(event: any) {
+
+      let file: any
+      file = event.target.files[0]
+      console.log("this is my Path", file.name);
+
+      this.api.uploadImage(file.name).subscribe((res) => {
+        this.fileName = res.data.url;
+        console.log("filepath", this.fileName)
+        Swal.fire('File Uploaded Successfully', '', 'success')
+      })
+
+  }
+
 }
