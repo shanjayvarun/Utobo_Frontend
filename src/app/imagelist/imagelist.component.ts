@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import Swal from 'sweetalert2';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-imagelist',
@@ -20,6 +21,12 @@ export class ImagelistComponent implements OnInit {
 
   dataSource: any;
   imageList: any;
+  img: any;
+
+  profileForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
 
   constructor(private api: ApiService, private router: Router, private changeDetector: ChangeDetectorRef) {}
 
@@ -56,5 +63,16 @@ export class ImagelistComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+  }
+
+  onFileChanged(event:any) {
+    this.img = event.target.files[0];
+    console.log("img", this.img.name)
+  }
+
+  onsubmit(){
+         this.api.uploadImage(this.img.name).subscribe((res) => {
+               console.log("success", res)
+         })
   }
 }

@@ -15,16 +15,42 @@
   </head>
 
   <body>
-    <div class="card" style="width: 90%;">
-      <div class="card-header" style="display: flex; justify-content:space-between">
+    <div class="card" style="width: 90%">
+      <div
+        class="card-header"
+        style="display: flex; justify-content: space-between"
+      >
         <div class="card-title">Image List with User ID</div>
         <div class="card-toolbar">
-          <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+          <button mat-raised-button color="primary" (click)="logout()">
+            Logout
+          </button>
         </div>
       </div>
-      <div class="card-body" style="margin-top: 10px;">
+      <div class="card-body" style="margin-top: 10px"></div>
 
-      </div>
+
+        <div
+          class="upload-form"
+          style="display: flex; justify-content: space-between"
+        >
+          <input
+            type="file"
+            name="files"
+            accept="image/*"
+            (change)="onFileChanged($event)"
+          />
+          <div class="input-groups">
+            <div class="button input-box">
+              <button type="submit" (click)="onsubmit()">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+
+      <br />
+
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="userId">
           <th mat-header-cell *matHeaderCellDef>user Id</th>
